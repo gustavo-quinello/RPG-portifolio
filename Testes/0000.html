@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fichas de RPG</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body { font-family: sans-serif; background-color: #121212; color: #e0e0e0; padding: 20px; }
+        #resultado-busca { font-weight: bold; min-height: 25px; }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Minhas Fichas de RPG</h1>
+
+        <h2>Verificar Jogador</h2>
+        <form id="form-busca">
+            <label for="nome-jogador">Nome do Jogador:</label>
+            <input type="text" id="nome-jogador" placeholder="Digite um nome para buscar...">
+            <button type="submit">Verificar</button>
+        </form>
+        <p id="resultado-busca"></p>
+        
+        <h2>Lista de Todos os Personagens</h2>
+        <div id="personagens-lista">
+            <p>Carregando personagens...</p>   
+        </div>
+
+    </main>
+
+    <script>
+
+        // 1. Configuração da Conexão com o Supabase
+        const SUPABASE_URL = 'https://uoeixaiwyqjtbcqduzid.supabase.co';       // Cole sua URL aqui
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVvZWl4YWl3eXFqdGJjcWR1emlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4ODI2OTgsImV4cCI6MjA3MTQ1ODY5OH0.o_FY6xyjNetUjzsLiqaKrES_-d7_nYUE8vL8vFG8MDA'; // Cole sua chave 'anon public' aqui
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+
+        // --- LÓGICA PARA CARREGAR TODOS OS PERSONAGENS (JÁ EXISTIA) ---
+        async function buscarPersonagens() {
+            const lista = document.getElementById('personagens-lista');
+            const { data, error } = await supabaseClient.from('personagens').select('*');
+
+            if (error) {
+                console.error('Erro ao buscar personagens:', error);
+                lista.innerHTML = 'Não foi possível carregar os personagens.';
+                return;
+            }
+            
+            lista.innerHTML = '';
+
+            if (data) {
+                for (const personagem of data) {
+                    const elementoPersonagem = document.createElement('p');
+                    elementoPersonagem.textContent = `Vilão: ${personagem.character} (Nível: ${personagem.nivel})`;
+                    lista.appendChild(elementoPersonagem);
+                }
+            }
+        }
+
+        // Roda a função para buscar a lista completa assim que a página carregar
+        buscarPersonagens();
+
+
+        // --- NOVA LÓGICA PARA O FORMULÁRIO DE BUSCA ---
+
+        // 1. Seleciona os novos elementos do formulário de busca
+        const formBusca = document.getElementById('form-busca');
+        const inputBusca = document.getElementById('nome-jogador');
+        const resultadoBusca = document.getElementById('resultado-busca');
+
+        // 2. Adiciona o ouvinte de evento para quando o formulário for enviado
+        formBusca.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Impede o recarregamento da página
+
+            const nomeProcurado = inputBusca.value.trim(); // Pega o nome e remove espaços em branco
+
+            // Validação simples para não buscar um nome vazio
+            if (!nomeProcurado) {
+                resultadoBusca.textContent = 'Por favor, digite um nome.';
+                return;
+            }
+            
+            resultadoBusca.textContent = `Buscando por "${nomeProcurado}"...`;
+
+            try {
+                // 3. AQUI ESTÁ A MUDANÇA PRINCIPAL: A BUSCA FILTRADA
+                const { data, error } = await supabaseClient
+                    .from('personagens')          // Da tabela 'personagens'
+                    .select('player')             // Selecione a coluna 'player'
+                    .eq('player', nomeProcurado); // Onde a coluna 'player' é IGUAL A ('eq') o nome procurado
+
+                if (error) throw error; // Se a comunicação com o Supabase der erro
+
+                // 4. Analisa o resultado da busca
+                if (data.length > 0) {
+                    // Se a lista 'data' tem pelo menos 1 item, encontramos o jogador
+                    resultadoBusca.textContent = 'Deu Certo! Jogador encontrado no banco de dados.';
+                    resultadoBusca.style.color = 'green';
+                } else {
+                    // Se a lista 'data' está vazia, não encontramos o jogador
+                    resultadoBusca.textContent = 'Deu Errado! Jogador não encontrado.';
+                    resultadoBusca.style.color = 'red';
+                }
+
+            } catch (error) {
+                console.error('Erro na busca:', error);
+                resultadoBusca.textContent = 'Ocorreu um erro ao realizar a busca.';
+                resultadoBusca.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>

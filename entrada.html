@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal - Fichas de RPG</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="checkUser.js" defer></script>
+    <script src="entrada.js" defer></script>
+    <style>
+        body { font-family: fantasy; min-height: 100vh; background-image: linear-gradient(180deg, #5c1745, #000); color: #e0e0e0; }
+        header {
+            width: 100%; /* Ocupa a largura toda da tela */
+            padding: 20px 40px; /* Espaçamento interno (20px em cima/baixo, 40px nas laterais) */
+            background-color: #2c144d; /* Uma cor de fundo para o cabeçalho */
+            
+            /* A "listra" que você queria! */
+            border-bottom: 3px solid #6a0dad; /* Usando a cor roxa para consistência */
+
+            /* A MÁGICA DO FLEXBOX ACONTECE AQUI */
+            display: flex;
+            justify-content: space-between; /* Joga os itens para os extremos opostos */
+            align-items: center; /* Alinha os itens verticalmente no centro */
+            
+            box-sizing: border-box; /* Garante que o padding não aumente a largura total */
+        }
+        #welcome-message { font-size: 1em; margin: 0;}
+        #logout-button { color: #ff6b6b; cursor: pointer; text-decoration: underline; font-size: 1em; ; }
+                /* Estilos anteriores (body, header, etc.) continuam os mesmos */
+        
+        main {
+            /* 1. Ativamos o modo Grid */
+            display: grid;
+
+            /* 2. Definimos o layout das colunas */
+            /* 1fr 2fr 1fr significa: 1 parte para a 1ª coluna, 2 partes para a do meio, 1 parte para a 3ª */
+            grid-template-columns: 1fr 1fr 1fr;
+
+            /* 3. Definimos o espaçamento entre as colunas */
+            gap: 30px;
+
+            /* Ajustes gerais */
+            padding: 30px;
+            max-width: 1600px;
+            margin: 30px auto;
+        }
+
+        .coluna {
+            background-color: #1f1f1f;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        /* --- TORNANDO A PÁGINA RESPONSIVA (PARA CELULARES) --- */
+        /* Esta regra só se aplica a telas com largura de 800px ou menos */
+        @media (max-width: 800px) {
+            main {
+                /* Em telas pequenas, as colunas viram uma só e se empilham */
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <p id="welcome-message">Carregando informações do usuário...</p>
+        <span id="logout-button">Sair (Logout)</span>
+    </header>
+    <main>
+        <section id="coluna-ficha" class="coluna">
+            <h2>Suas Fichas</h2>
+            <div id="personagens-lista">
+                <p>Em breve...</p>
+            </div>
+        </section>
+
+        <section id="coluna-item" class="coluna">
+            <h1>Itens e consumiveis</h1>
+            
+
+        </section>
+        
+        <section id="coluna-regras" class="coluna">
+            <h1>Regras e Mecânicas</h1>
+            <p id="regras">ainda não tem regras</p>   
+        </section>
+        
+
+    </main>
+
+
+</body>
+</html>
