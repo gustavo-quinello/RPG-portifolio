@@ -25,7 +25,7 @@ logoutButton.addEventListener('click', async () => {
         alert("Erro ao fazer logout: " + error.message);
     } else {
         alert("Você foi desconectado.");
-        window.location.href = "login.html";
+        window.location.href = "index.html";
     }
 });
 
