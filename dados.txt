@@ -1,0 +1,21 @@
+Informacoes que precisam de regras
+-atributos
+-efeitos
+-danos
+-armadura
+-testes
+-magias
+-armadura
+-trilha
+-classe
+-nivel
+-Véu
+-ações de combate
+    -movimentação
+    -ações
+    -reações
+-armas
+-mana e foco
+-segunda mão
+-itens mágicos
+-interlúdio
