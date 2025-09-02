@@ -4,123 +4,129 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fichas de RPG</title>
+    <link rel="shortcut icon" href="Iconarchive-Treasure-Chest-Skull.512.png" type="image/x-icon">
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <script src="index.js" defer></script>
     <script src="indexslides.js" defer></script>
     <style>
- /* --- PROPOSTA DE REATORAÇÃO --- */
-
-        body {
-            /* O body cuida do fundo GERAL e da centralização do seu conteúdo */
-            background-color: #0B0505;
-            font-family: fantasy;
-            color: #F6E8EA;
-            font-size: 25px;
-
-            /* Centraliza o <main> na tela de forma moderna */
-            display: grid;
-            place-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        main {
-            /* O main se torna o nosso "cartão" principal */
-            width: 1200px; /* Mantive sua largura */
-            background-image: linear-gradient(180deg,#000000, rgb(39, 0, 65));
-            
-            /* Movendo os estilos do body para cá */
-            border-radius: 10px;
-            box-shadow: 5px 5px 15px #cb19db;
-            overflow: hidden; /* Garante que nada saia das bordas arredondadas */
-        }
+    /* --- ESTILO GERAL E DE FUNDO --- */
+    body {
+        background-color: #0B0505;
+        font-family: fantasy;
+        color: #F6E8EA;
+        font-size: 25px;
+        margin: 0;
         
+        /* Centraliza o <main> na tela de forma moderna */
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        padding: 20px; /* Adiciona um respiro nas bordas em telas pequenas */
+        box-sizing: border-box;
+    }
+
+    #slideshow-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+    .slide {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        transition: opacity 1.5s ease-in-out;
+    }
+    .slide:nth-child(1) { background-image: url(arte1.jpg); }
+    .slide:nth-child(2) { background-image: url(arte2.jpg); }
+    .slide:nth-child(3) { background-image: url(arte3.jpg); }
+    .slide.active { opacity: 1; }
+
+
+    /* --- ESTILO DO CARTÃO DE LOGIN --- */
+    main {
+        background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(39, 0, 65, 0.6));
+        border-radius: 10px;
+        box-shadow: 5px 5px 15px #cb19db;
+        overflow: hidden;
+        
+        /* A MUDANÇA MAIS IMPORTANTE: Layout flexível */
+        width: 100%;          /* Ocupa 100% do espaço disponível */
+        max-width: 1000px;     /* Mas nunca passará de 600px de largura */
+    }
+    
+    .login-container {
+        padding: 40px;
+        display: grid;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    /* --- ESTILO DO FORMULÁRIO --- */
+    .form-group + .form-group {
+        margin-top: 30px;
+    }
+
+    .form-group label {
+        display: block;
+        text-align: center;
+        margin-bottom: 10px; /* Espaço entre o label e o input */
+    }
+
+    input {
+        /* ATUALIZADO: Inputs agora preenchem 100% do container */
+        width: 100%;
+        box-sizing: border-box; /* Garante que padding não estoure a largura */
+        padding: 10px 30px;
+        font-size: 20px;
+        border: 1px solid #444;
+        border-radius: 5px;
+        background-color: #1c1c1c;
+        color: #F6E8EA;
+        text-align: center;
+        font-family: Arial, sans-serif;
+    }
+
+    button {
+        /* ATUALIZADO: Botão agora preenche 100% do container */
+        width: 100%;
+        box-sizing: border-box;
+        border: none;
+        padding: 15px 30px;
+        font-family: fantasy;
+        font-size: 25px;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 30px;
+        background-color: #6a0dad;
+        color: #F6E8EA;
+        transition: background-color 0.3s ease;
+    }
+    button:hover {
+        background-color: #520886;
+    }
+
+
+    /* --- BÔNUS: MEDIA QUERY PARA AJUSTES FINOS --- */
+    /* Regras aplicadas apenas em telas com 400px de largura ou menos */
+    @media (max-width: 400px) {
+        body {
+            font-size: 20px; /* Diminui um pouco a fonte base */
+        }
         .login-container {
-            /* O container agora só se preocupa em organizar o conteúdo interno */
-            padding: 40px; /* Usamos padding para dar espaço nas bordas */
-            min-height: 550px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center; /* Centraliza horizontalmente o conteúdo do flex */
+            padding: 20px; /* Diminui o padding interno no celular */
         }
-        .form-group label{
-            display: block;
-            text-align: center;
-        }
-        .form-group + .form-group{
-            margin-top: 30px;
-        }
-               /* NOVO: Estilos para os campos de input */
-        input {
-            width: 500px; /* Define uma largura fixa de 500px. Ajuste como preferir! */
-            padding: 10px; /* Espaçamento interno para o texto não ficar colado na borda */
-            font-size: 20px; /* Um tamanho de fonte confortável para a digitação */
-            border: 1px solid #444; /* Uma borda sutil */
-            border-radius: 5px; /* Bordas arredondadas, combinando com o botão */
-            background-color: #1c1c1c; /* Um fundo escuro, mas diferente do principal */
-            color: #F6E8EA; /* Cor do texto digitado */
-            text-align: center; /* Centraliza o texto que o usuário digita */
-            font-family: Arial, sans-serif; /* É melhor usar uma fonte mais legível para inputs */
-        }
-
-        button {
-            background-color: #6a0dad; /* Um roxo que combina com o tema */
-            color: #F6E8EA;
-            width: 530px;
-            border: none; /* Remove a borda padrão */
-            padding: 15px 30px; /* Espaçamento interno (altura e largura) */
-            font-family: fantasy; /* Mesma fonte do resto do site */
-            font-size: 25px; /* Mesmo tamanho de fonte */
-            cursor: pointer; /* Muda o cursor para uma mãozinha ao passar por cima */
-            border-radius: 5px; /* Bordas levemente arredondadas */
-            margin-top: 30px; /* Espaço acima do botão */
-            transition: background-color 0.3s ease; /* Efeito suave na troca de cor */
-        }
-        button:hover {
-            background-color: #520886; /* Um roxo um pouco mais escuro ao passar o mouse */
-        }
-        main{
-            background-image: linear-gradient(180deg,#000, #270041);
-        }
-                /* Adicione este novo código CSS */
-        #slideshow-background {
-            position: fixed; /* Fixa na tela para não rolar com o conteúdo */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; /* Joga o slideshow para TRÁS de todo o conteúdo */
-        }
-
-        .slide {
-            position: absolute; /* Permite que os slides fiquem um sobre o outro */
-            width: 100%;
-            height: 100%;
-            background-size: cover; /* Faz a imagem cobrir toda a tela */
-            background-position: center; /* Centraliza a imagem */
-            opacity: 0; /* Começa invisível por padrão */
-            transition: opacity 1.5s ease-in-out; /* Efeito suave de fade de 1.5 segundos */
-        }
-
-        /* Define as imagens para cada slide */
-        /* Use suas próprias imagens aqui! */
-        .slide:nth-child(1) {
-            background-image: url(arte1.jpg);
-        }
-        .slide:nth-child(2) {
-            background-image: url(arte2.jpg);
-        }
-        .slide:nth-child(3) {
-            background-image: url(arte3.jpg);
-        }
-
-        .slide.active {
-            opacity: 1; /* Torna o slide ativo visível */
-        }
-    </style>
+    }
+</style>
 </head>
 
 <body>
