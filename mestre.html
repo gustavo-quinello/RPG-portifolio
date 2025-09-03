@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PaginaADM</title>
+    <link rel="shortcut icon" href="Iconarchive-Treasure-Chest-Skull.512.png">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="checkUser.js" defer></script>
+    <script src="mestre.js" defer></script>
+
+    <style>
+        body {
+            font-size: 22px;
+            font-family: fantasy;
+            min-height: 100vh;
+            background-image: linear-gradient(180deg, #5c1745, #000000 );
+            color: #e0e0e0;
+        }
+        header{
+            width: 100%;
+            padding: 20px 40px;
+            background-color: #2c144d;
+            display: flex;
+            border-bottom: 3px solid #6a0dad;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+
+        }
+        main {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            text-align: center;
+            padding: 15px;
+            gap: 30px;
+        }
+        #logout-button { color: #ff6b6b; cursor: pointer; text-decoration: underline; font-size: 1em}
+        .coluna {
+            background-color: #000000;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 5px 5px 10px #e0e0e0;
+        }
+
+        /* --- TORNANDO A PÁGINA RESPONSIVA (PARA CELULARES) --- */
+        /* Esta regra só se aplica a telas com largura de 800px ou menos */
+        @media (max-width: 800px) {
+            main {
+                /* Em telas pequenas, as colunas viram uma só e se empilham */
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .botao {
+            width: 100%;
+            border-radius: 10px;
+            padding: 10px 10px;
+            box-shadow: 5px 5px 10px #5c1745;
+            font-family: fantasy;
+            font-size: 20px;
+            color: #c3baba;
+            background-color: #2F0B56;
+            margin-bottom: 20px;
+            
+        }
+        button:hover {background-color: #520886;}
+        
+        .buscador {
+            width: 100%;
+            border-radius: 10px;
+            padding: auto;
+            box-shadow: 2px 2px 5px;
+            font-size: 20px;
+            font-family: fantasy;
+            color: #c3baba;
+            background-color: #5c1745;
+            text-align: center;
+
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <p id="welcome-message">Carregando informações do Admin...</p>
+        <span id="logout-button">Sair (Logout)</span>
+    </header>
+    <main>
+        <section id="FichasJogadores" class="coluna">
+            <h1>Fichas dos Jogadores</h1>
+            <a href="criarficha.html" style="text-decoration: none;">
+                <button type="submit" class="botao">Criar nova ficha</button>
+            </a>
+            <form id="form-busca">
+            
+                <input type="search" placeholder="Buscar uma Ficha" id="buscarFicha" class="buscador">
+            </form>
+            <div id="resultados-busca">
+                <p>Os resultados aparecerão aqui</p>
+            </div>
+
+        </section>
+
+        <section id="regras" class="coluna">
+            <h1>Principais regras</h1>
+            <p>combate</p>
+            <p>interlúdio</p>
+            
+        </section>
+
+        <section id="combate" class="coluna">
+            <h1>Iniciar um Combate</h1>
+            <form id="combatentes">
+                <button type="submit" class="botao">Comecar combate</button>
+                <label for="name"></label>
+                <input type="search" placeholder="Digite o combatente" id="buscarCombatente" class="buscador">
+            </form>
+            <div id="resultados-combate">
+                <p>Os resultados aparecerão aqui</p>
+            </div>
+
+        </section>
+
+    </main>
+</body>
+</html>
