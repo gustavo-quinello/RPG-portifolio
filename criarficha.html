@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>criarficha</title>
     <script src="checkUser.js"></script>
-    <script src="criarficha.js"></script>
 </head>
 <body>
     <h1>Nova Ficha de Personagem</h1>
@@ -56,32 +55,37 @@
             <option value="Liberação">Liberação</option>
         </select>
 
-        <div id="pontos_disponiveis"></div>
-
-        <label for="nivel">Nível do Personagem:</label>
-        <input type="number" max="16" min="0" id="nivel">
-
-        <label for="atributo-Força">Força</label>
-        <input type="number" id="atributo-Força" max="8" min="0">
-
-        <label for="atributo-Destreza">Destreza</label>
-        <input type="number" id="atributo-Destreza" max="8" min="0">
+        <p> Voce tem <span id="Pontos_disponiveis">0</span> Pontos sobrando!</p>
         
-        <label for="atributo-Vigor">Vigor</label>
-        <input type="number" id="atributo-Vigor" max="8" min="0">
+        <label for="nivel">Nível do Personagem:</label>
+        <input type="number" max="16" min="0" id="nivel" class="atributo">
+        
+        <div>
+            <label for="atributo-Força">Força</label>
+            <input type="number" id="atributo-Força" max="8" min="0" value="0" class="atributo">
 
-        <label for="atributo-Intelecto">Intelecto</label>
-        <input type="number" id="atributo-Intelecto" max="8" min="0">
+            <label for="atributo-Destreza">Destreza</label>
+            <input type="number" id="atributo-Destreza" max="8" min="0" class="atributo" value="0">
+            
+            <label for="atributo-Vigor">Vigor</label>
+            <input type="number" id="atributo-Vigor" max="8" min="0" value="0" class="atributo">
 
-        <label for="atributo-Presença">Presença</label>
-        <input type="number" id="atributo-Presença" max="8" min="0">        
+            <label for="atributo-Intelecto">Intelecto</label>
+            <input type="number" id="atributo-Intelecto" max="8" min="0" class="atributo" value="0" >
 
+            <label for="atributo-Presença">Presença</label>
+            <input type="number" id="atributo-Presença" max="8" min="0" class="atributo" value="0" >
+        </div>
+        
+        <h3>Selecione suas habilidades</h3>
+        <div id="containers"></div>
 
         <button type="submit" id="finalizar">Finalizar Ficha</button>
     </form>
     <p id="message"></p>
     <a href="mestre.html">Voltar para o painel</a>
     <script src="mestre.js"></script>
+    <script src="criarficha.js"></script>
 
     
 </body>
