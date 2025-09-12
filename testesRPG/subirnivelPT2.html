@@ -16,14 +16,19 @@
     <script>
         const nivelv = document.getElementById("nivel")
         const displayValores = document.getElementById("valores")
-        function numeroanterior(){
+        const N1 = Number(nivelv.value)
+        function analise(){
 
-            const nivelAtual = nivelv.value;
-            displayValores.textContent = nivelAtual
+            const N2 = nivelv.value;
+            const S = N2 - N1
+
+            displayValores.textContent = S
             
         }
 
-        nivelv.addEventListener("input",generica)
+
+        nivelv.addEventListener("input",analise)
+        nivelv.addEventListener("input",trasformar)
     </script>
 </body>
 </html>
