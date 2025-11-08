@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fichas de RPG</title>
+    <link rel="shortcut icon" href="assets/icons/Chest-Skull.png" type="image/x-icon">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script src="js/index.js" defer></script>
+    <script src="js/indexslides.js" defer></script>
+    <link rel="stylesheet" href="css/index.css">
+    
+</head>
+
+<body>
+    <div id="slideshow-background">
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div> 
+    </div>
+
+    <main>
+        <form id="login-form">
+            <div class="login-container">
+                <h1>Bem vindo a plataforma de fichas</h1>
+                <div class="form-group">
+                    <label for="username">Digite seu nome de usuario:</label>
+                    <input type="email" id="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Digite a senha:</label>
+                    <input type="password" id="password" >
+                </div>
+                <p id="messageElement"></p>
+
+                <button type="submit">Entrar</button>
+            </div>
+        </form>
+    </main>
+</body>
